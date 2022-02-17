@@ -49,9 +49,13 @@ public:
         }
     };
 
+
+    //******
+    *****//
     // вычисляет суммарную стоимость содержимого всех коробок:
     double get_final_value(Box boxes[], int count){
-        for(Box box: ){
+        for(Box box:
+        ){
 
         }
     }
