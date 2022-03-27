@@ -109,59 +109,62 @@ public:
         return maxW;
     }
 
-    bool static BubbleSort(Box arr[], int n){
 
+    bool static isInside(Box arr[], int n) {
         Box temp = {0, 0, 0, 0, 0};
         bool res = true;
 
-        for (int i = 1; i < n; i++){
+        for (int i = 1; i < n; i++) {
 
-            for (int j = n-1; j >= i; j--){
+            for (int j = n - 1; j >= i; j--) {
 
-                if (arr[j-1].getLength() >= arr[j].getLength() &&
-                arr[j-1].getWidth() >= arr[j].getWidth() &&
-                arr[j-1].getHeight() >= arr[j].getHeight()){
-                    if(arr[j-1].getLength() == arr[j].getLength() ||
-                       arr[j-1].getWidth() == arr[j].getWidth() ||
-                       arr[j-1].getHeight() == arr[j].getHeight()){
+                if (arr[j - 1].getLength() >= arr[j].getLength() &&
+                    arr[j - 1].getWidth() >= arr[j].getWidth() &&
+                    arr[j - 1].getHeight() >= arr[j].getHeight()) {
+                    if (arr[j - 1].getLength() == arr[j].getLength() ||
+                        arr[j - 1].getWidth() == arr[j].getWidth() ||
+                        arr[j - 1].getHeight() == arr[j].getHeight()) {
                         return false;
 
-                    temp = arr[j];
-                    arr[j] = arr[j-1];
-                    arr[j-1] = temp;
+                        temp = arr[j];
+                        arr[j] = arr[j - 1];
+                        arr[j - 1] = temp;
 
+                    }
                 }
             }
+
         }
-
-    }
-        return res;
-    }
-
-
-
-    bool static isInside(Box boxes[], int count) {
-        int boxLength[]{};
-
-        bool res = true;
-
-        BubbleSort(boxes, count);
-
-
         return res;
     }
 
 };
 
-std::ostream& operator << (std::ostream &os, const Box &b){
-    return os <<"length = " << b.length <<" , width = "<<b.width<<", height = "<<b.height << std::endl;
+std::ostream &operator<<(std::ostream &os, const Box &b) {
+    return os << "length = " << b.length << " , width = " << b.width << ", height = " << b.height << std::endl;
 }
+
+//std::istream &operator>>(std::istream &in, const Box &b, const int &length,
+//        const int &height, const int &width, const int &value, const double &weight) {
+//    return in >> b.length=length >> b.width=width >> b.height=height >> b.value = value >> b.weight=weight;
+//}
+
+
+
+}
+bool operator==(const Box &b1, const Box &b2) {
+    return b1.length == b2.length && b1.height==b2.height
+    && b1.width==b2.width && b1.weight==b2.weight && b1.value==b2.value;
+}
+
 
 int main() {
 
+    int n = 3;
     Box box3 = {1, 1, 1, 1, 50};
     Box box2 = {2, 2, 2, 2, 20};
     Box box1 = {3, 3, 3, 3, 10};
+    Box box0 = {3, 3, 3, 3, 10};
     Box boxes[] = {box1, box2, box3};
     bool g;
     bool k;
@@ -177,15 +180,19 @@ int main() {
 //    std::cout << l;
 //    k = Box::isInside(boxes, 3);
 //    std::cout <<"k = "<< k;
-    g = Box::BubbleSort(boxes,3);
-//    std::cout <<"boxes[0]: " << boxes[0].getLength() << " " << boxes[0].getHeight() <<" "<< boxes[0].getWidth()<<std::endl;
-//    std::cout <<"boxes[1]: " << boxes[1].getLength() << " " << boxes[1].getHeight() <<" "<< boxes[1].getWidth()<<std::endl;
-//    std::cout <<"boxes[2]: " << boxes[2].getLength() << " " << boxes[2].getHeight() <<" "<< boxes[2].getWidth()<<std::endl;
-//    std::cout << boxes[0] << " " << boxes[1] << " " << boxes[2] << std::endl;
-    std::cout << g << std::endl;
 
+//#5
+    g = Box::isInside(boxes, n);
+    std::cout << " isInside: " << g << std::endl;
+    for (int i = 0; i < n; i++) {
+        std::cout << "boxes[" << i << "]: " << boxes[i];
+    }
 
-
+    //#6
+    bool f = box1==box2;
+    std::cout<<"f = "<<f<<std::endl;
+    f = box0==box1;
+    std::cout<<"f = "<<f<<std::endl;
 
 
 }
