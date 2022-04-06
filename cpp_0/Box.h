@@ -9,21 +9,22 @@
 class Box {
 private:
     //длина, ширина и высота коробки в см
-    int length, width, height;
+    int length, width, heigth;
 //    int width;
-//    int height;
+//    int heigth;
     double weight; //масса коробки в кг
     int value;  //стоимость содержимого в копейках
 
+//    todo: в хэдере только объявления методов, реализация в Box.cpp
 public:
 
-    void setLength(int length1) {
-        if (length1 < 0) {
-            throw "length can't be negative";
-        } else {
-            length = length1;
-        }
-    }
+//    void setLength(int length1) {
+//        if (length1 < 0) {
+//            throw "length can't be negative";
+//        } else {
+//            length = length1;
+//        }
+//    }
 
     int getLength() { return length; }
 
@@ -39,13 +40,13 @@ public:
 
     void setHeight(int myHeight) {
         if (myHeight < 0) {
-            throw "height can't be negative";
+            throw "heigth can't be negative";
         } else {
-            height = myHeight;
+            heigth = myHeight;
         }
     }
 
-    int getHeight() { return height; }
+    int getHeight() { return heigth; }
 
     void setWeight(double myWeight) {
         if (myWeight < 0) {

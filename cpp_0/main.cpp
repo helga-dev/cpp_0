@@ -5,10 +5,11 @@
 
 struct Box {
 private:
-    //длина, ширина и высота коробки в см
-    int length, width, height;
+
+//длина, ширина и высота коробки в см
+    int length, width, heigth;
 //    int width;
-//    int height;
+//    int heigth;
     double weight; //масса коробки в кг
     int value;  //стоимость содержимого в копейках
 
@@ -36,13 +37,13 @@ public:
 
     void setHeight(int myHeight) {
         if (myHeight < 0) {
-            throw "height can't be negative";
+            throw "heigth can't be negative";
         } else {
-            height = myHeight;
+            heigth = myHeight;
         }
     }
 
-    int getHeight() { return height; }
+    int getHeight() { return heigth; }
 
     void setWeight(double myWeight) {
         if (myWeight < 0) {
@@ -109,68 +110,111 @@ public:
     }
 
 
-    bool static isInside(Box arr[], int n) {
-        Box temp = {0, 0, 0, 0, 0};
-//        bool res = true;
-
-        for (int i = 1; i < n; i++) {
-
-            for (int j = n - 1; j >= i; j--) {
-
-                if (arr[j - 1].getLength() >= arr[j].getLength() &&
-                    arr[j - 1].getWidth() >= arr[j].getWidth() &&
-                    arr[j - 1].getHeight() >= arr[j].getHeight()) {
-
-                    temp = arr[j];
-                    arr[j] = arr[j - 1];
-                    arr[j - 1] = temp;
-
-                }
-            }
-        }
-        for (int i = 1; i < n; i++) {
-
-            for (int j = n - 1; j >= i; j--) {
-                if (arr[j - 1].getLength() == arr[j].getLength() ||
-                    arr[j - 1].getWidth() == arr[j].getWidth() ||
-                    arr[j - 1].getHeight() == arr[j].getHeight()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-
-    }
+//    bool static isInside(Box b[], int size) {//коробку в коробку
+//        int minLen;//длина
+//        int minWid;//ширина
+//        int minHei;//высота
+//        int memory = 0;
+//        Box c[size];
+//        Box d = Box(2147483647, 2147483647, 2147483647, 0, 0);
+//
+//        for (int i = 0; i < size; i++) {//копия ориг массива
+//            c[i] = b[i];
+//        }
+//
+//        for (int j = 0; j < size; j++) {
+//            minLen = 2147483647;
+//            minHei = 2147483647;
+//            minWid = 2147483647;
+//            for (int i = j + 1; i < size; i++) {//найти самую маленькую и запомнить ее индекс
+//                if(c[i].length == c[j].length || c[i].width == c[j].width || c[i].heigth == c[j].heigth){
+//                    std::cout << "1";
+//                    return false;
+//                }
+//                if((b[i].length < b[j].length) && (b[i].width > b[j].width) && (b[i].heigth > b[j].heigth) ||
+//                   (b[i].length > b[j].length) && (b[i].width < b[j].width) && (b[i].heigth > b[j].heigth) ||
+//                   (b[i].length > b[j].length) && (b[i].width > b[j].width) && (b[i].heigth < b[j].heigth)){
+//                    std::cout << "2";
+//                    return false;
+//                }
+//                if ((minLen > c[i].length) &&
+//                    (minWid > c[i].width) &&
+//                    (minHei > c[i].heigth)) {
+//
+//                    minLen = c[i].length;
+//                    minWid = c[i].width;
+//                    minHei = c[i].heigth;
+//                    memory = i;
+//
+//                }
+//                else continue;
+//            }
+//
+//            c[memory] = d;
+//        }
+//        //if что разные и там массив коробка которая да не большая и если будут разные показатели 131 и 222
+//
+//        return true;
+//    }
+//    bool static isInside(Box arr[], int n) {
+//        Box temp = {0, 0, 0, 0, 0};
+////        bool res = true;
+//
+//        for (int i = 1; i < n; i++) {
+//
+//            for (int j = n - 1; j >= i; j--) {
+//
+//                if (arr[j - 1].getLength() >= arr[j].getLength() &&
+//                    arr[j - 1].getWidth() >= arr[j].getWidth() &&
+//                    arr[j - 1].getHeight() >= arr[j].getHeight()) {
+//
+//                    temp = arr[j];
+//                    arr[j] = arr[j - 1];
+//                    arr[j - 1] = temp;
+//
+//                }
+//            }
+//        }
+//        for (int i = 1; i < n; i++) {
+//
+//            for (int j = n - 1; j >= i; j--) {
+//                if (arr[j - 1].getLength() == arr[j].getLength() ||
+//                    arr[j - 1].getWidth() == arr[j].getWidth() ||
+//                    arr[j - 1].getHeight() == arr[j].getHeight()) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//
+//    }
 
 };
 
 //Операторы возвращают потоки как результат, чтобы работали цепочки вида
 //cout << a << b;
 
-std::istream &operator>>(std::istream &in, Box &box) {
-    int length, width, height, value;
-    double weight;
-    in >> length >> width >> height >> value >> weight;
-    box.setLength(length);
-    box.setWidth(width);
-    box.setHeight(height);
-    box.setValue(value);
-    box.setWeight(weight);
+friend std::istream &operator>>(std::istream &in, Box &box) {
+//    int length, width, height, value;
+//    double weight;
+    in >> box.getLength();
+    in >> box.getWidth() >> box.getHeight() >> box.getValue() >> box.getWeight();
+
     return in;
 }
 
 std::ostream &operator<<(std::ostream &out, Box &box) {
-    out << "length: " << box.getLength() << " width: " << box.getWidth() << " height: " << box.getHeight()
+    out << "length: " << box.getLength() << " width: " << box.getWidth() << " heigth: " << box.getHeight()
         << " value: " << box.getValue() << " weight: " << box.getWeight();
     return out;
 }
 //std::ostream &operator<<(std::ostream &os, const Box &b) {
-//    return os << "length = " << b.length << " , width = " << b.width << ", height = " << b.height << std::endl;
+//    return os << "length = " << b.length << " , width = " << b.width << ", heigth = " << b.heigth << std::endl;
 //}
 
 //std::istream &operator>>(std::istream &in, const Box &b, const int &length,
-//        const int &height, const int &width, const int &value, const double &weight) {
-//    return in >> b.length=length >> b.width=width >> b.height=height >> b.value = value >> b.weight=weight;
+//        const int &heigth, const int &width, const int &value, const double &weight) {
+//    return in >> b.length=length >> b.width=width >> b.heigth=heigth >> b.value = value >> b.weight=weight;
 //}
 
 
@@ -209,28 +253,28 @@ int main() {
 //    k = Box::isInside(boxes, 3);
 //    std::cout <<"k = "<< k;
 
-//#5
-    g = Box::isInside(boxes, n);
-    std::cout << " isInside: " << g << std::endl;
-    for (int i = 0; i < n; i++) {
-        std::cout << "boxes[" << i << "]: " << boxes[i] << std::endl;
-    }
-    n = 4;
-    g = Box::isInside(newBoxes, n);
-    std::cout << " isInside: " << g << std::endl;
-    n = 3;
-    g = Box::isInside(wrongBoxes, n);
-    std::cout << " isInside: " << g << std::endl;
-
+////#5
+//    g = Box::isInside(boxes, n);
+//    std::cout << " isInside: " << g << std::endl;
+//    for (int i = 0; i < n; i++) {
+//        std::cout << "boxes[" << i << "]: " << boxes[i] << std::endl;
+//    }
+//    n = 4;
+//    g = Box::isInside(newBoxes, n);
+//    std::cout << " isInside: " << g << std::endl;
+//    n = 3;
+//    g = Box::isInside(wrongBoxes, n);
+//    std::cout << " isInside: " << g << std::endl;
+//
 
     //#6
     bool f = box1 == box2;
-    std::cout << "(expected true) f = " << f << std::endl;
+    std::cout << "(expected 0) f = " << f << std::endl;
     f = box0 == box1;
-    std::cout << "(expected false)f = " << f << std::endl;
+    std::cout << "(expected 1) f = " << f << std::endl;
 
+//    #7
     std::cout << box1;
-//    box1 = std::cin >> 1 >> 2 >> 3 >> 4 >> 5;
-
+    std::cin >> box1;
 }
 
